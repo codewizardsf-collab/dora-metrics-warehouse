@@ -1,21 +1,46 @@
-# DORA Metrics Warehouse
+﻿# DORA Metrics Warehouse
 
-Data engineering analytics project focused on deployment frequency, lead time, change failure rate, and time-to-restore metrics.
+A warehouse schema and metric view set for deployment frequency, lead time, change failure rate, and incident restore-time analytics.
 
-## Resume Fit
+## Stack
 
-- Engineering productivity analytics.
-- Warehouse modeling for leadership dashboards.
-- Pipeline reliability and data quality ownership.
+SQL warehouse modeling, engineering productivity analytics
 
-## Project Contents
+## Problem
 
-- SQL warehouse models for deployments, incidents, and services.
-- Metric definitions with business rules.
-- Data quality checklist for skewed/incomplete deployment events.
+Engineering leadership dashboards need stable definitions, not ad hoc spreadsheet formulas. This project captures DORA metric rules as versioned SQL.
 
-## Production Next Steps
+## Architecture
+
+- sql/001_create_tables.sql defines services, deployments, and incidents.
+- sql/010_metric_views.sql builds a service-level DORA view.
+- The project is database-neutral enough to adapt to Snowflake, BigQuery, Redshift, or PostgreSQL.
+
+## Implemented Production Readiness
+
+- CI verifies required SQL artifacts are present.
+- Metric logic is centralized and reviewable.
+- Schema separates facts from service ownership dimensions.
+
+## Run And Test
+
+```powershell
+Review SQL files under sql/
+```
+
+## Quality Gates
+
+- Project-specific GitHub Actions workflow included under .github/workflows/ci.yml.
+- Generated build outputs and dependency folders are excluded through .gitignore.
+- Tests and validation commands are intentionally small enough to run during code review.
+
+## Production Extension Points
 
 - Add dbt project metadata.
-- Add Snowflake/BigQuery profile examples.
-- Add synthetic event generator for local tests.
+- Add warehouse-specific profiles.
+- Add synthetic event fixtures for regression testing.
+
+## Repository Hygiene
+
+This repository contains original portfolio code only. It does not include employer source code, private resumes, generated binaries, local credentials, or large media files.
+

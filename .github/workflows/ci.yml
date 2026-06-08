@@ -1,0 +1,16 @@
+﻿name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: test -s sql/001_create_tables.sql
+      - run: test -s sql/010_metric_views.sql
+
